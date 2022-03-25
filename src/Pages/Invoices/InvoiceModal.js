@@ -263,7 +263,7 @@ const InvoiceModal =(props)=> {
                                 </Button>
                             </Col>
                             <Col md={6}>
-                                <Button variant="outline-primary" className="d-block w-100 mt-3 mt-md-0" onClick={download}>
+                                <Button variant="outline-primary" className="d-block w-100 mt-3 mt-md-0" onClick={download} type="submit">
                                     <BiCloudDownload style={{width: '16px', height: '16px', marginTop: '-3px'}} className="me-2"/>
                                     Download Copy
                                 </Button>

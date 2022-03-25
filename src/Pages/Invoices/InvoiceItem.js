@@ -71,13 +71,9 @@ const InvoiceItem =(props) =>{
     </div>
         </>
         );
-
-
-
 }
 
 const ItemRow =(props)=> {
-
 
     const onDelEvent=()=> {
         props.onDelEvent(props.item);
@@ -138,13 +134,9 @@ const ItemRow =(props)=> {
                 </td>
             </tr>
         );
-
-
-
 }
 
 const PartRow =(props)=> {
-
 
     const onDelEvent=()=> {
         props.onDelEvent(props.item);
@@ -184,6 +176,7 @@ const PartRow =(props)=> {
                         value: props.item.quantity,
                         id: props.item.id,
                     }}/>
+                    
             </td>
             <td style={{minWidth: '130px'}}>
                 <EditableField

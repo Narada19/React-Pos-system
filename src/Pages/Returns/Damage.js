@@ -52,19 +52,48 @@ const useStyles = makeStyles({
 const Damage = () => {
 
     const [value, setValue] = React.useState(0);
+    const handletab = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    //new
+    const[itemreturn, setReturn] = useState([])
+    const[itemdamage, setDamage] = useState([])
+    const[status, setstatus] = useState(false)
+
+    useEffect(() => {
+
+        // Update the document title using the browser API
+        document.title = `Return & Damage`;
+        axios.get('http://127.0.0.1:8000/api/damage/get/').then((response) => {
+            setDamage(response.data.data);
+            console.log(response.data.data)
+        });
+        axios.get('http://127.0.0.1:8000/api/return/get/').then((response) => {
+            setReturn(response.data.data);
+            console.log(response.data.data)
+        });
+
+    },[status])
+
 
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-            field: 'Name',
+            field: 'supplierName',
             headerName: 'Name',
             width: 200,
         },
         {
-            field: 'ContactNo',
+            field: 'supplierContact',
             headerName: 'Contact No.',
             width: 150,
+        },
+        {
+            field: 'supplierAddress',
+            headerName: 'Address',
+            width: 250,
         },
         {
             field: 'Action',
@@ -73,65 +102,6 @@ const Damage = () => {
         },
     ];
 
-    const rows = [
-        {
-            "id": 1,
-            "firstName": "mujeeb",
-            "lastName": "singham",
-            "email": "chandulagayan@gmail.com",
-            "verificationtoken": "1234",
-            "epfNo": null,
-            "phoneNo": "0776465645",
-            "image": null,
-            "statusId": 1,
-            "password": "$2y$10$zrrjILLqTKyxYiR3jrOdvuaE.tEG3U148gVPoe7zYQLpitytXpyU2 ",
-            "createdAt": "2021-07-16T10:38:11.002Z",
-            "updatedAt": "2021-07-16T10:38:11.002Z",
-        },
-        {
-            "id": 9,
-            "firstName": "Gayath",
-            "lastName": "Chandula",
-            "email": "chandulagayan1@gmail.com",
-            "verificationtoken": "g96wx6",
-            "epfNo": "47586598",
-            "phoneNo": null,
-            "image": "uploads/dashboard.JPG-1626512057383.jpeg",
-            "statusId": 50,
-            "password": "$2b$10$vqy4Pln0C.V88NOCdpOOFOKZYHbVGWv.yV/7XLn7cpYxLQnV2PzPi",
-        }
-    ];
-
-
-    const handletab = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    //new
-    const[damage, setdamage] = useState([])
-    const [status,setstatus] = useState(false)
-
-    // const[Return, setReturn] = useState([])
-    // const [status,setstatus] = useState(false)
-
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/damage/get/').then((response) => {
-            setdamage(response.data.data);
-            console.log(response.data.data)
-        });
-
-    }, [status]);
-
-
-    // useEffect(() => {
-    //     axios.get('http://127.0.0.1:8000/api/return/get/').then((response) => {
-    //         setdamage(response.data.data);
-    //         console.log(response.data.data)
-    //     });
-
-    // }, [status]);
-
-    //new
 
     return (
         <>
@@ -240,7 +210,7 @@ const Damage = () => {
                                             <div style={{ height: 400, width: '100%'}}>
                                                 <DataGrid
                                                     theme={useStyles}
-                                                    rows={rows}
+                                                    rows={itemreturn}
                                                     columns={columns}
                                                     pageSize={5}
                                                     // checkboxSelection
@@ -267,7 +237,7 @@ const Damage = () => {
                                             <div style={{ height: 400, width: '100%'}}>
                                                 <DataGrid
                                                     theme={useStyles}
-                                                    rows={rows}
+                                                    rows={itemdamage}
                                                     columns={columns}
                                                     pageSize={5}
                                                     // checkboxSelection
