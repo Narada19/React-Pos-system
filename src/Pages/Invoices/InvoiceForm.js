@@ -287,7 +287,6 @@ const InvoiceForm = (props) => {
     }
 
 
-
     const onCurrencyChange = (selectedOption) => {
         setcurrency(selectedOption);
     };
@@ -300,8 +299,6 @@ const InvoiceForm = (props) => {
     };
 
     const closeModal = (event) => setisOpen( false)
-
-
 
 
     return (
