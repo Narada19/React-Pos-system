@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {BrowserRouter, Redirect, Route, Switch,Routes,Navigate  } from 'react-router-dom'
 
 
-//import Logoing from '../Pages/login'
+import Logoing from '../Pages/login'
 import Dashboard from '../Pages/Dashboard'
 import Brands from "../Pages/Brand";
 import Customer from "../Pages/Customer";
@@ -27,6 +27,7 @@ const Path = () => {
             {/*    <Redirect to="/Home"/>*/}
             {/*</Route>*/}
 
+            <Route path="/Logoing" element={<Logoing/>} />
             <Route path="/Dashboard" element={<Dashboard/>} />
             <Route path="/" element={<Navigate to="/Dashboard" />}/>
             <Route path="/products/Brand" element={<Brands/>} />

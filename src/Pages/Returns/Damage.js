@@ -65,34 +65,48 @@ const Damage = () => {
 
         // Update the document title using the browser API
         document.title = `Return & Damage`;
-        axios.get('http://127.0.0.1:8000/api/damage/get/').then((response) => {
-            setDamage(response.data.data);
-            console.log(response.data.data)
-        });
+        // axios.get('http://127.0.0.1:8000/api/damage/get/').then((response) => {
+        //     setDamage(response.data.data);
+        //     console.log(response.data.data)
+        // });
         axios.get('http://127.0.0.1:8000/api/return/get/').then((response) => {
             setReturn(response.data.data);
             console.log(response.data.data)
         });
 
     },[status])
-
-
+    
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-            field: 'supplierName',
-            headerName: 'Name',
+            field: 'product_name',
+            headerName: 'Product Name',
             width: 200,
         },
         {
-            field: 'supplierContact',
-            headerName: 'Contact No.',
+            field: 'brand_name',
+            headerName: 'Brand Name',
             width: 150,
         },
         {
-            field: 'supplierAddress',
-            headerName: 'Address',
+            field: 'supplier_name',
+            headerName: 'Supplier Name',
+            width: 250,
+        },
+        {
+            field: 'qty',
+            headerName: 'Qty',
+            width: 250,
+        },
+        {
+            field: 'date',
+            headerName: 'Date',
+            width: 250,
+        },
+        {
+            field: 'status',
+            headerName: 'Type',
             width: 250,
         },
         {
@@ -101,7 +115,6 @@ const Damage = () => {
             width: 250,
         },
     ];
-
 
     return (
         <>
@@ -127,7 +140,6 @@ const Damage = () => {
                                     }} value={value} onChange={handletab}>
                                         <Tab label={<div className="customertab"><i className='bx bxs-duplicate'></i>Product Returns</div>} {...a11yProps(0)} />
                                         <Tab label={<div className="customertab"><i className="bx bxs-note"></i>Return Details</div>} {...a11yProps(1)} />
-                                        <Tab label={<div className="customertab"><i className="bx bxs-note"></i>Damage Items</div>} {...a11yProps(2)} />
                                     </Tabs>
                                 </AppBar>
                             </div>
@@ -230,33 +242,7 @@ const Damage = () => {
                                     </div>
                                 </div>
                             </TabPanel>
-                            <TabPanel value={value} index={2}>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card full-height">
-                                            <div style={{ height: 400, width: '100%'}}>
-                                                <DataGrid
-                                                    theme={useStyles}
-                                                    rows={itemdamage}
-                                                    columns={columns}
-                                                    pageSize={5}
-                                                    // checkboxSelection
-                                                    disableSelectionOnClick
-                                                    // onSelectionModelChange={(e) => {
-                                                    //     const selectedIDs = new Set(e.selectionModel);
-                                                    //     const selectedRowData = listData1.lists.filter((row) =>
-                                                    //         selectedIDs.has(row.id)
-                                                    //     );
-                                                    //     setemailreceipents(selectedRowData)
-                                                    //     console.log("selected rowData:", selectedRowData);
-                                                    // }}
-                                                    // selectionModel={selectionModel}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </TabPanel>
+                           
                         </div>
                     </div>
                 </div>
