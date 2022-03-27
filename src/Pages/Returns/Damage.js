@@ -153,7 +153,7 @@ const Damage = () => {
                                                                 <input type="text" autoFocus placeholder="" value="#"
                                                                        required/>
                                                             </div>
-                                                            <div className="rowcustomer">
+                                                            {/* <div className="rowcustomer">
                                                                 <label>Stock</label>
                                                                 <select id="department" name="department" required>
                                                                     <option value="Toyota" selected>Toyota</option>
@@ -162,11 +162,11 @@ const Damage = () => {
                                                                     <option value="Benz" selected>Benz</option>
                                                                     <option value="Bmw" selected>Bmw</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                         <div className="col-6">
                                                             <div className="rowcustomer">
-                                                                <label>Product</label>
+                                                                <label>Product Spare parts</label>
                                                                 <input type="text" autoFocus placeholder="" value="#"
                                                                        required/>
                                                             </div>
@@ -179,8 +179,7 @@ const Damage = () => {
                                                         </div>
                                                         <div className="col-6">
                                                             <div className="rowcustomer">
-                                                            <span className="fw-bold">Current&nbsp;Date:&nbsp;</span><br></br>
-                                                            <span className="current-date"  required>{new Date().toLocaleDateString()}</span> 
+                                                            <span className="fw-bold">Current&nbsp;Date:&nbsp;<span className="current-date"  required>{new Date().toLocaleDateString()}</span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -197,7 +196,7 @@ const Damage = () => {
                                                     {/*    </select>*/}
                                                     {/*</div>*/}
                                                     <div id="button" className="rowbrandsbutton">
-                                                        <button type="submit" >Return</button>
+                                                        <button type="submit" >Submit</button>
                                                     </div>
                                                 </form>
                                             </div>
