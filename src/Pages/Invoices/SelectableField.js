@@ -30,7 +30,7 @@ const SelectableField = (props) => {
                 onChange={props.onItemizedItemEdit}
 
             >
-                {/*<option selected>Select the Item</option>*/}
+                <option selected>Select the Item</option>
                 {props.parts.map((items, i) => (
                     <option key={i} value={items.productName} >{items.productName}</option>
                 ))}
