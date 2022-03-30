@@ -176,7 +176,7 @@ const Suppliers = () => {
                                                 {formSuccess ? (
                                                     <Alert severity="success">
                                                         <AlertTitle>Success</AlertTitle>
-                                                        user registration was <strong>successful!</strong>
+                                                        Supplier registration was <strong>successful!</strong>
                                                     </Alert>
                                                 ) : null }
                                                 {formError ? (
