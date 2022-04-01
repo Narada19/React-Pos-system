@@ -32,7 +32,7 @@ const SelectableField = (props) => {
             >
                 <option selected>Select the Item</option>
                 {props.parts.map((items, i) => (
-                    <option key={i} value={items.id} >{items.productName}</option>
+                    <option key={i} value={items.productName} >{items.productName}</option>
                 ))}
             </Form.Select>
 

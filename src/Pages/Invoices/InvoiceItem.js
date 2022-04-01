@@ -87,8 +87,8 @@ const ItemRow =(props)=> {
                         parts={props.items}
                         cellData={{
                             type: "text",
-                            name: "id",
-                            placeholder: "Item id",
+                            name: "name",
+                            placeholder: "Item name",
                             value: props.item.value,
                             id: props.item.id,
                         }}/>
@@ -141,7 +141,7 @@ const PartRow =(props)=> {
                     parts={props.parts}
                     cellData={{
                         type: "text",
-                        name: "id",
+                        name: "name",
                         placeholder: "Item name",
                         value: props.item.value,
                         id: props.item.id,
