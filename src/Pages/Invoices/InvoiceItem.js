@@ -20,15 +20,15 @@ const InvoiceItem =(props) =>{
     const onPartRowDel = props.onPartRowDel
     const onRowAdd = props.onRowAdd;
     const onRowPartAdd = props.onRowPartAdd;
-    const itemTable = props.items.map(function (item){
+    const itemTable = props.items.map(function (item, index){
         return (
-            <ItemRow onItemizedItemEdit={onItemizedItemEdit} item={item} items={props.item}  onDelEvent={rowDel} key={item.id}
+            <ItemRow onItemizedItemEdit={onItemizedItemEdit} item={item} items={props.item}  onDelEvent={rowDel} key={index}
                      currency={currency}/>
         )
     });
-    const partsTable = props.dataparts.map(function (item){
+    const partsTable = props.dataparts.map(function (item,index){
         return (
-            <PartRow onItemizedItemEdit={onItemizedPartsEdit} item={item} parts={props.parts} onDelEvent={onPartRowDel} key={item.id}
+            <PartRow onItemizedItemEdit={onItemizedPartsEdit} item={item} parts={props.parts} onDelEvent={onPartRowDel} key={index}
                      currency={currency}/>
         )
     });
@@ -89,18 +89,9 @@ const ItemRow =(props)=> {
                             type: "text",
                             name: "name",
                             placeholder: "Item name",
-                            value: props.item.name,
+                            value: props.item.value,
                             id: props.item.id,
                         }}/>
-                    {/*<EditableField*/}
-                    {/*    onItemizedItemEdit={props.onItemizedItemEdit}*/}
-                    {/*    cellData={{*/}
-                    {/*        type: "text",*/}
-                    {/*        name: "description",*/}
-                    {/*        placeholder: "Item description",*/}
-                    {/*        value: props.item.description,*/}
-                    {/*        id: props.item.id*/}
-                    {/*    }}/>*/}
                 </td>
                 <td style={{minWidth: '70px'}}>
                     <EditableField
@@ -152,18 +143,9 @@ const PartRow =(props)=> {
                         type: "text",
                         name: "name",
                         placeholder: "Item name",
-                        value: props.item.name,
+                        value: props.item.value,
                         id: props.item.id,
                     }}/>
-                {/*<EditableField*/}
-                {/*    onItemizedItemEdit={props.onItemizedItemEdit}*/}
-                {/*    cellData={{*/}
-                {/*        type: "text",*/}
-                {/*        name: "description",*/}
-                {/*        placeholder: "Item description",*/}
-                {/*        value: props.item.description,*/}
-                {/*        id: props.item.id*/}
-                {/*    }}/>*/}
             </td>
             <td style={{minWidth: '70px'}}>
                 <EditableField
