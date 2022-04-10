@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Button from 'react-bootstrap/Button';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -138,10 +139,25 @@ const Products = () => {
             width: 150,
         },
         {
-            field: 'Action',
-            headerName: 'action',
-            width: 250,
-        },
+            field: "action",
+            headerName: "Action",
+            sortable: false,
+            renderCell: (params) => {
+              const onClick = (e) => {
+                e.stopPropagation(); // don't select this row after clicking
+        
+                const element = document.querySelector('#delete-request-error-handling .status');
+                axios.delete('http://127.0.0.1:8000/api/product/delete/1')
+                    .then(response => element.innerHTML = 'Delete successful')
+                    .catch(error => {
+                        element.parentElement.innerHTML = `Error: ${error.message}`;
+                        console.error('There was an error!', error);
+                    });
+              };
+        
+              return <Button onClick={onClick}>Delete</Button>;
+            }
+          },
     ];
 
     const handletab = (event, newValue) => {
