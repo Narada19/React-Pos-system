@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import InvoiceItem from './InvoiceItem';
 import InvoiceModal from './InvoiceModal';
-// import Jobcard from './Jobcard';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 
@@ -51,24 +50,24 @@ const InvoiceForm = (props) => {
 
     const [update,setupdate] = useState([{
         id: 0,
+        product: 0,
         name: '',
-        price: '1.00',
-        description: '',
+        price: '0.00',
         quantity: 1
     }])
     const [items,setitems] = useState([{
         id: 0,
+        product: 0,
         name: '',
-        price: '1.00',
-        description: '',
+        price: '0.00',
         quantity: 1
     }])
 
     const [parts,setparts] = useState([{
         id: 0,
+        product: 0,
         name: '',
-        price: '1.00',
-        description: '',
+        price: '0.00',
         quantity: 1
     }])
 
@@ -87,13 +86,11 @@ const InvoiceForm = (props) => {
         });
         axios.get('http://127.0.0.1:8000/api/product/get/part/').then((response) => {
             setParts(response.data.data);
-            // console.log(response.data.data);
         });
         axios.get('http://127.0.0.1:8000/api/product/get/service/').then((response) => {
             setservice(response.data.data);
-            // console.log(response.data.data);
         });
-        handleCalculateTotal();
+        // handleCalculateTotal();
 
     },[status])
 
@@ -108,19 +105,19 @@ const InvoiceForm = (props) => {
     const handlePartRowDel =(item) =>{
         const index = parts.indexOf(item);
         // const updateindex = update.indexOf(item);
-        parts.splice(index, 1)
+        parts.splice(index, 1);
         setparts(parts);
         setupdate(parts);
     };
 
     const handleAddEvent =(evt) => {
-        //const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+        const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
         const item = {
-            id: 0,
+            id: id,
+            product: 0,
             name: '',
-            price: '1.00',
-            description: '',
+            price: '0.00',
             quantity: 1
         };
         items.push(item);
@@ -129,13 +126,13 @@ const InvoiceForm = (props) => {
 
     }
     const handlePartAddEvent =(evt) => {
-        // const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+        const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
         const part = {
-            id: 0,
+            id: id,
+            product: 0,
             name: '',
-            price: '1.00',
-            description: '',
+            price: '0.00',
             quantity: 1
         };
         parts.push(part);
@@ -180,6 +177,7 @@ const InvoiceForm = (props) => {
                     items[key] = item.value;
                     if(item.index){
                         items.price = service[item.index].sellingPrice;
+                        items.product = service[item.index].id
                     }
                     // items.price = service[item.index].sellingPrice || items.price;
                 }
@@ -205,6 +203,7 @@ const InvoiceForm = (props) => {
                 if (key == part.name && items.id == part.id) {
                     items[key] = part.value;
                     items.price = Parts[evt.target.selectedIndex].sellingPrice;
+                    items.product = part.id
                 }
             }
             // Parts[evt.target.selectedIndex].sellingPrice
@@ -289,6 +288,7 @@ const InvoiceForm = (props) => {
     }
 
 
+
     const onCurrencyChange = (selectedOption) => {
         setcurrency(selectedOption);
     };
@@ -302,41 +302,72 @@ const InvoiceForm = (props) => {
 
     const closeModal = (event) => setisOpen( false)
 
+    const submit =(e) =>{
+        e.preventDefault();
+        axios.post('http://127.0.0.1:8000/api/invoice/register/',{
+            dateCreated : dateOfIssue,
+            customer : VNumber,
+            totalPrice : total,
+            discount : discountAmount,
+            paid : total,
+            userName : billFrom,
+            userAddres : billFromAddress,
+            userMobile : billFromEmail,
+            tax : taxAmount,
+            items,
+            parts
+        })
+        .then(res => console.log(res))
+        .then(function (response) {
+            console.log(response);
+            setformError(false);
+            setformSuccess(true);
+            setstatus(true)
+        })
+        .catch(function (error) {
+            console.log(error);
+            setformError(true);
+            setformSuccess(false);
+            seterror(error);
+        });
+    }
+
+
 
     return (
-        <Form onSubmit={openModal}>
+        <Form onSubmit={submit}>
             <Row>
                 <Col md={8} lg={9}>
                     <Card className="p-4 p-xl-5 my-3 my-xl-4">
-                        <Col className="d-flex flex-row align-items-start justify-content-between mb-3">
-                            <Col className="d-flex flex-column">
-                                <Col className="d-flex flex-column">
-                                    <Col className="mb-2">
+                        <div className="d-flex flex-row align-items-start justify-content-between mb-3">
+                            <div className="d-flex flex-column">
+                                <div className="d-flex flex-column">
+                                    <div className="mb-2">
                                         <span className="fw-bold">Current&nbsp;Date:&nbsp;</span>
                                         <span className="current-date">{new Date().toLocaleDateString()}</span>
-                                    </Col>
-                                </Col>
-                                <Col className="d-flex flex-row align-items-center">
+                                    </div>
+                                </div>
+                                <div className="d-flex flex-row align-items-center">
                                     <span className="fw-bold d-block me-2">Due&nbsp;Date:</span>
                                     <Form.Control type="date" value={dateOfIssue} name={"dateOfIssue"} onChange={(event) => updatedateOfIssue(event)} style={{
                                         maxWidth: '150px'
                                     }} required="required"/>
-                                </Col>
-                            </Col>
-                            <Col className="d-flex flex-row align-items-center">
+                                </div>
+                            </div>
+                            <div className="d-flex flex-row align-items-center">
                                 <span className="fw-bold me-2">Invoice&nbsp;Number:&nbsp;</span>
                                 <Form.Control type="number" value={invoiceNumber} name={"invoiceNumber"} onChange={(event) => updateinvoiceNumber(event)} min="1" style={{
                                     maxWidth: '70px'
                                 }} required="required"/>
-                            </Col>
-                        </Col>
+                            </div>
+                        </div>
                         <h1 style={{textAlign:"center"}}>{props.Heading}</h1>
                         <hr className="my-4"/>
                         <Row className="mb-5">
                             <Form.Label className="fw-bold">Vehicle Details</Form.Label>
                             <Col>
                                 <Form.Select  placeholder={"Vehicle Number"} rows={3} value={VNumber} type="text" name="vnumber" className="my-2" onChange={(event) => updateVNumber(event)} autoComplete="vnumber" required="required">
-                                    <option value=''>Select the vehicle number</option>
+                                    <option>Select the vehicle number</option>
                                     {Customers.map((items, i) => (
                                         <option key={i} value={items.vehicleNumber} >{items.vehicleNumber}</option>
                                     ))}
@@ -368,36 +399,36 @@ const InvoiceForm = (props) => {
                         <InvoiceItem onItemizedItemEdit={onItemizedItemEdit} onItemizedPartsEdit={onItemizedPartsEdit} onRowAdd={handleAddEvent} onRowPartAdd={handlePartAddEvent} onRowDel={handleRowDel} onPartRowDel={handlePartRowDel} currency={currency} items={items} item={service} dataparts={parts} parts={Parts}/>
                         <Row className="mt-4 justify-content-end">
                             <Col lg={6}>
-                                <Col className="d-flex flex-row align-items-start justify-content-between">
+                                <div className="d-flex flex-row align-items-start justify-content-between">
                   <span className="fw-bold">Subtotal:
                   </span>
                                     <span>{currency}
                                         {subTotal}</span>
-                                </Col>
-                                <Col className="d-flex flex-row align-items-start justify-content-between mt-2">
+                                </div>
+                                <div className="d-flex flex-row align-items-start justify-content-between mt-2">
                                     <span className="fw-bold">Discount:</span>
                                     <span>
                     <span className="small ">({discountRate || 0}%)</span>
                                         {currency}
                                         {discountAmount || 0}</span>
-                                </Col>
-                                <Col className="d-flex flex-row align-items-start justify-content-between mt-2">
+                                </div>
+                                <div className="d-flex flex-row align-items-start justify-content-between mt-2">
                   <span className="fw-bold">Tax:
                   </span>
                                     <span>
                     <span className="small ">({taxRate || 0}%)</span>
                                         {currency}
                                         {taxAmount || 0}</span>
-                                </Col>
+                                </div>
                                 <hr/>
-                                <Col className="d-flex flex-row align-items-start justify-content-between" style={{
+                                <div className="d-flex flex-row align-items-start justify-content-between" style={{
                                     fontSize: '1.125rem'
                                 }}>
                   <span className="fw-bold">Total:
                   </span>
                                     <span className="fw-bold">{currency}
                                         {total || 0}</span>
-                                </Col>
+                                </div>
                             </Col>
                         </Row>
                         <hr className="my-4"/>
@@ -406,12 +437,9 @@ const InvoiceForm = (props) => {
                     </Card>
                 </Col>
                 <Col md={4} lg={3}>
-                    <Col className="sticky-top pt-md-3 pt-xl-4">
+                    <div className="sticky-top pt-md-3 pt-xl-4">
                         <Button variant="primary" style={{background:'#19335A' ,outline:"none", border:"none"}} type="submit" className="d-block w-100">Review Invoice</Button>
-                        <br></br>
-                        <Button variant="primary" style={{background:'#19335A' ,outline:"none", border:"none"}} type="submit" className="d-block w-100">Job Card</Button>
                         <InvoiceModal showModal={isOpen}  closeModal={closeModal} invoiceNumber={invoiceNumber} billTo={billTo} billToAddress={billToAddress} billToEmail={billToEmail} billFrom={billFrom} billFromAddress={billFromAddress} notes={notes} billFromEmail={billFromEmail} dateOfIssue={dateOfIssue} items={items} parts={parts} currency={currency} subTotal={subTotal} taxAmmount={taxAmount} discountAmmount={discountAmount} total={total} customer={VNumber} VBrand={VBrand} VModel={VModel} Chassis={CNumber} Year={VYear} color={VColor}/>
-                        {/* <Jobcard showModal={isOpen}  closeModal={closeModal} invoiceNumber={invoiceNumber} billTo={billTo} billToAddress={billToAddress} billToEmail={billToEmail} billFrom={billFrom} billFromAddress={billFromAddress} notes={notes} billFromEmail={billFromEmail} dateOfIssue={dateOfIssue} items={items} parts={parts} currency={currency} subTotal={subTotal} taxAmmount={taxAmount} discountAmmount={discountAmount} total={total} customer={VNumber} VBrand={VBrand} VModel={VModel} Chassis={CNumber} Year={VYear} color={VColor}/> */}
                         <Form.Group className="mb-3">
                             <Form.Label className="fw-bold">Currency:</Form.Label>
                             <Form.Select onChange={event => onCurrencyChange( event.target.value)} className="btn btn-light my-1" aria-label="Change Currency">
@@ -443,7 +471,7 @@ const InvoiceForm = (props) => {
                                 </InputGroup.Text>
                             </InputGroup>
                         </Form.Group>
-                    </Col>
+                    </div>
                 </Col>
             </Row>
         </Form>

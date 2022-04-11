@@ -51,7 +51,7 @@ const InvoiceShow =(props)=> {
                     {/*<object data="http://africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%">*/}
                     {/*    <p>Alternative text - include a link <a href="http://africau.edu/images/default/sample.pdf">to the PDF!</a></p>*/}
                     {/*</object>*/}
-                    <iframe src={`http://127.0.0.1:8000${props.link}`} width="100%" height="800" />
+                    <iframe src={`//127.0.0.1:8000${props.link}`} width="100%" height="800" />
                 </div>
             </Modal>
         </div>

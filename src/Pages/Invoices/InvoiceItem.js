@@ -20,15 +20,15 @@ const InvoiceItem =(props) =>{
     const onPartRowDel = props.onPartRowDel
     const onRowAdd = props.onRowAdd;
     const onRowPartAdd = props.onRowPartAdd;
-    const itemTable = props.items.map(function (item, index){
+    const itemTable = props.items.map(function (item){
         return (
-            <ItemRow onItemizedItemEdit={onItemizedItemEdit} item={item} items={props.item}  onDelEvent={rowDel} key={index}
+            <ItemRow onItemizedItemEdit={onItemizedItemEdit} item={item} items={props.item}  onDelEvent={rowDel} key={item.id}
                      currency={currency}/>
         )
     });
-    const partsTable = props.dataparts.map(function (item,index){
+    const partsTable = props.dataparts.map(function (item){
         return (
-            <PartRow onItemizedItemEdit={onItemizedPartsEdit} item={item} parts={props.parts} onDelEvent={onPartRowDel} key={index}
+            <PartRow onItemizedItemEdit={onItemizedPartsEdit} item={item} parts={props.parts} onDelEvent={onPartRowDel} key={item.id}
                      currency={currency}/>
         )
     });
@@ -71,9 +71,13 @@ const InvoiceItem =(props) =>{
     </div>
         </>
         );
+
+
+
 }
 
 const ItemRow =(props)=> {
+
 
     const onDelEvent=()=> {
         props.onDelEvent(props.item);
@@ -89,9 +93,18 @@ const ItemRow =(props)=> {
                             type: "text",
                             name: "name",
                             placeholder: "Item name",
-                            value: props.item.value,
+                            value: props.item.name,
                             id: props.item.id,
                         }}/>
+                    {/*<EditableField*/}
+                    {/*    onItemizedItemEdit={props.onItemizedItemEdit}*/}
+                    {/*    cellData={{*/}
+                    {/*        type: "text",*/}
+                    {/*        name: "description",*/}
+                    {/*        placeholder: "Item description",*/}
+                    {/*        value: props.item.description,*/}
+                    {/*        id: props.item.id*/}
+                    {/*    }}/>*/}
                 </td>
                 <td style={{minWidth: '70px'}}>
                     <EditableField
@@ -125,9 +138,13 @@ const ItemRow =(props)=> {
                 </td>
             </tr>
         );
+
+
+
 }
 
 const PartRow =(props)=> {
+
 
     const onDelEvent=()=> {
         props.onDelEvent(props.item);
@@ -143,9 +160,18 @@ const PartRow =(props)=> {
                         type: "text",
                         name: "name",
                         placeholder: "Item name",
-                        value: props.item.value,
+                        value: props.item.name,
                         id: props.item.id,
                     }}/>
+                {/*<EditableField*/}
+                {/*    onItemizedItemEdit={props.onItemizedItemEdit}*/}
+                {/*    cellData={{*/}
+                {/*        type: "text",*/}
+                {/*        name: "description",*/}
+                {/*        placeholder: "Item description",*/}
+                {/*        value: props.item.description,*/}
+                {/*        id: props.item.id*/}
+                {/*    }}/>*/}
             </td>
             <td style={{minWidth: '70px'}}>
                 <EditableField
@@ -158,7 +184,6 @@ const PartRow =(props)=> {
                         value: props.item.quantity,
                         id: props.item.id,
                     }}/>
-                    
             </td>
             <td style={{minWidth: '130px'}}>
                 <EditableField

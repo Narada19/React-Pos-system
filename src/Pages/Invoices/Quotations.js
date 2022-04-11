@@ -70,11 +70,6 @@ const Quotations = () => {
             headerName: 'action',
             width: 250,
         },
-        {
-            field: 'Print',
-            headerName: 'Print',
-            width: 250,
-        },
     ];
 
     const rows = [
@@ -134,7 +129,7 @@ const Quotations = () => {
                                         }
                                     }} value={value} onChange={handletab}>
                                         <Tab label={<div className="customertab"><i className='bx bxs-duplicate'></i>Create Quotation</div>} {...a11yProps(0)} />
-                                        <Tab label={<div className="customertab"><i className="bx bxs-note"></i>Quotation List</div>} {...a11yProps(1)} />
+                                        <Tab label={<div className="customertab"><i className="bx bxs-note"></i>Quotation History</div>} {...a11yProps(1)} />
                                     </Tabs>
                                 </AppBar>
                             </div>

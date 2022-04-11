@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 
 const Invoices = () => {
 
-    const [value, setValue] = useState(0);
+    const [value, setValue] = React.useState(0);
     const [status,setstatus] = useState(false)
     const[link,setLink] =useState()
 
@@ -90,7 +90,7 @@ const Invoices = () => {
                 return <Button
                     variant="contained"
                     color="primary"
-                    size="large"
+                    size="small"
                     style={{marginLeft: 16}}
                     onClick={() => viewhandle(params.row.pdf)}
                 >
