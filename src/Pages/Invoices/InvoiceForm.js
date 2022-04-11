@@ -68,6 +68,7 @@ const InvoiceForm = (props) => {
         product: 0,
         name: '',
         price: '0.00',
+
         quantity: 1
     }])
 
@@ -203,7 +204,7 @@ const InvoiceForm = (props) => {
                 if (key == part.name && items.id == part.id) {
                     items[key] = part.value;
                     items.price = Parts[evt.target.selectedIndex].sellingPrice;
-                    items.product = part.id
+                    items.product = part.id;
                 }
             }
             // Parts[evt.target.selectedIndex].sellingPrice

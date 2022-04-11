@@ -132,7 +132,7 @@ const Suppliers = () => {
                 e.stopPropagation(); // don't select this row after clicking
         
                 const element = document.querySelector('#delete-request-error-handling .status');
-                axios.delete('http://127.0.0.1:8000/api/supplier/delete/1')
+                axios.delete('http://127.0.0.1:8000/api/supplier/delete/id')
                     .then(response => element.innerHTML = 'Delete successful')
                     .catch(error => {
                         element.parentElement.innerHTML = `Error: ${error.message}`;
